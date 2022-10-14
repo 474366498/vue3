@@ -1,22 +1,4 @@
-笔记本
-
-Proxy(data,{
-    set (target,key,value){
-        target[key] = value 
-    },
-    get (target,key) {
-        return target[key]
-    }
-})
-
-
-vue 依赖收集 
-  1. 创建一个全局变量 map 
-  2. 在proxy get中进行添加注册 
-  3. 在proxy set中通过key进行执行操作
-
-  `
-    let effectMap = new Map()
+let effectMap = new Map()
     let activeEffect = null       // 副作用标识 用于 注册
     const reactive = (data) => {
         return new Proxy(data, {
@@ -53,7 +35,3 @@ vue 依赖收集
     data.name = 'change name '
     console.log(36,data)
     }, 300)
-
-
-
-  `
