@@ -3,9 +3,9 @@ let effectMap = new Map()
     const reactive = (data) => {
         return new Proxy(data, {
             set(target, key, value) {
+                target[key] = value
                 let effectSet = effectMap.get(key)
                 effectSet && effectSet.forEach(fn => fn() )
-                target[key] = value
             },
             get(target, key) {
                 if(activeEffect){
