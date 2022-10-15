@@ -18,6 +18,7 @@ let effectMap = new Map()
         })
     }
     let data = reactive({ name: 'name', age: 20 })
+    let state = reactive({ name: 'state', age: 20 })
 
     const regeisterEffect = (fn) => {
         if(typeof fn !== 'function') return 
@@ -29,9 +30,12 @@ let effectMap = new Map()
     regeisterEffect(function effectName(){
         console.log(25, data.name)
     })
+    regeisterEffect(function effectState(){
+        console.log(34, state.name)
+    })
     console.log(32,effectMap )
 
     setTimeout(function () {
-    data.name = 'change name '
-    console.log(36,data)
+        data.name = 'change name '
+        console.log(36,data.name)
     }, 300)
