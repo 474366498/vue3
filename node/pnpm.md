@@ -92,3 +92,32 @@ tsconfig.json
     "test-dts"
   ]
 }
+
+
+build 打包 
+
+根目录下 script build.js ..... 手写试试 具体内容 （边写边跑 + 百度）
+pnpm run dev =>  node dev.js 
+dev.js (组织一些变量 生成一系列 rollup打包配置项)=>  rollup.config.js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
