@@ -39,6 +39,14 @@ runtime
                 el          // 虚拟节点对应的真实节点
             }
             
+        createRender(renderOptions){
+            // 组件挂载 initialVNode 组件虚拟节点  container id节点
+            mountComponent = (initialVNode,container) =>{ 
 
-
+                createComponentInstance ()  
+            }
+        }
+            createComponentInstance ()   // 创建组件实例
+            setupComponent 启动组件  inatance 属性初始化(props,attrs,children)
+            initProps 校验类型????
 
