@@ -46,7 +46,30 @@ runtime
                 createComponentInstance ()  
             }
         }
-            createComponentInstance ()   // 创建组件实例
+            createComponentInstance (vnode){   // 创建组件实例(虚拟节点)
+                type = vnode.type
+                instance = {
+                    vnode ,  //实例存放易燃虚拟节点
+                    type : ,//组件对象
+                    subTree : null ,// 组件渲染的内容 
+                    ctx: {} ,//组件上下文
+                    props : {} , // 组件props属性
+                    attrs : {} , //组件中非props属性
+                    slots : {} , // 组件插槽
+                    setupState : {}, // setup返回的状态
+                    porpsOptions: type.props , //属性选项
+                    proxy : null , // 实例的代理对象
+                    render : null , // 组件的渲染函数
+                    emit : null ,  // 事件触发
+                    exposed : {} , // 暴露的方法
+                    isMounted : false  //是否挂载完成
+                }
+                instance.ctx = {_:vnode}
+            }
+
+
+
+
             setupComponent 启动组件  inatance 属性初始化(props,attrs,children)
             initProps 校验类型????
 
