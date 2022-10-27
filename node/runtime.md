@@ -43,7 +43,7 @@ runtime
             // 组件挂载 initialVNode 组件虚拟节点  container id节点
             mountComponent = (initialVNode,container) =>{ 
 
-                createComponentInstance ()  
+                instance = initialVNode.component = createComponentInstance ()  
             }
         }
             createComponentInstance (vnode){   // 创建组件实例(虚拟节点)
@@ -64,12 +64,87 @@ runtime
                     exposed : {} , // 暴露的方法
                     isMounted : false  //是否挂载完成
                 }
-                instance.ctx = {_:vnode}
+                instance.ctx = {_:instance}   // 后续进行代理
             }
 
 
 
 
-            setupComponent 启动组件  inatance 属性初始化(props,attrs,children)
-            initProps 校验类型????
+            setupComponent(instance){ //启动组件  inatance 属性初始化(props,attrs,children)
+                const {props,children } = instance.vnode 
+                initProps (instance,props)  // 校验类型????
+                initSlots(instance , children) // 插槽
+                setupStateFulComponent(instance) // 调用setup拿到返回值 
+            }
+            
+            
+            initProps(instance , rawProps) { // 校验类型???? 把rawProps 分成 props attrs 
+                options = Object.keys(instance.propsOption)  // 注册过的props 
+
+                // instance props 响应式 attrs 非响应式
+
+            }
+            setupStateFulComponent (instance) {
+                let Conponent = instance.type 
+                const {setup} = instance.type
+                instance.proxy = new Proxy (instance.ctx,PublicInstanceProxyHandlers)     /// 
+                if(setup) {
+                    ctx = createSetupContext()
+                    ctx = {
+                        attrs ,
+                        slots ,
+                        emit ,
+                        expose 
+                    }
+                    setup(instance.props,ctx)
+                }
+
+            }
+            <!--  
+                let obj = {a:1,b:2}
+                console.log(obj.hasOwnProperty('a'))
+                console.log(Object.prototype.hasOwnProperty.call(obj,'a') )
+            -->
+            const hasOwn = (value,key) => Object.prototype.hasOwnProperty.call(value,key)
+
+            PublicInstanceProxyHandlers = {
+                get ({_:instance},key) {
+                    const {setupState , props} = instance 
+                    if(hasOwn(setupState,key)) {
+                        return setupState[key]
+                    }else if(hasOwn(props,key)) {
+                        return props[key]
+                    }else {
+                        // ...
+                    }
+                },
+                set () {
+                    
+                    return true 
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
