@@ -118,7 +118,7 @@ runtime
                         // ...
                     }
                 },
-                set () {
+                set ({_:instance},key,value) {
                     
                     return true 
                 }
