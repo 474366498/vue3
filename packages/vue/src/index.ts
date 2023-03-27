@@ -11,8 +11,10 @@ if (__DEV__) {
   initDev()
 }
 
+// 编译缓存
 const compileCache: Record<string, RenderFunction> = Object.create(null)
 
+// 编译器函数
 function compileToFunction(
   template: string | HTMLElement,
   options?: CompilerOptions
