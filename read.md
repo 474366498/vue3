@@ -2258,7 +2258,7 @@ const patchKeyedChildren = (
 
 #### 新前与旧前
 
-[!新前与旧前](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-d74d11a0719948d4.webp)
+![新前与旧前](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-d74d11a0719948d4.webp)
 
 ```typescript
 while (i <= e1 && i <= e2) {
@@ -2293,7 +2293,7 @@ while (i <= e1 && i <= e2) {
 
 #### 新后与旧后
 
-[!新后与旧后](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-3d24729a5de6eafe.webp)
+![新后与旧后](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-3d24729a5de6eafe.webp)
 
 ```typescript
 while (i <= e1 && i <= e2) {
@@ -2330,7 +2330,7 @@ while (i <= e1 && i <= e2) {
 
 #### 常规顺序的新子节点挂载
 
-[!常规顺序的新子节点挂载](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-e9c0da8e31e6d5bf.webp)
+![常规顺序的新子节点挂载](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-e9c0da8e31e6d5bf.webp)
 
 ```typescript
 // 旧节点遍历完
@@ -2367,7 +2367,7 @@ if (i > e1) {
 
 #### 常规顺序的移除多余节点
 
-[!常规顺序的移除多余节点](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-53e2272efe96b0e9.webp)
+![常规顺序的移除多余节点](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-53e2272efe96b0e9.webp)
 
 ```typescript
 
@@ -2385,7 +2385,7 @@ else if (i > e2) {  // 新节点遍历完了
 
 #### 未知顺序的子节点比较
 
-[!未知顺序的子节点比较](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-fb17484909a6eff5.webp)
+![未知顺序的子节点比较](https://github.com/474366498/vue3/blob/main/read~md/patch/1634490-fb17484909a6eff5.webp)
 
 ```typescript
 //新旧节点的新索引
