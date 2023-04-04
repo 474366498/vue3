@@ -32,8 +32,10 @@ import {
 import { isRef } from './ref'
 import { warn } from './warning'
 
+//这里贴上源码,感兴趣的仔细阅读,不在进行讲解
 const isNonTrackableKeys = /*#__PURE__*/ makeMap(`__proto__,__v_isRef,__isVue`)
 
+//Symbol的所有属性值
 const builtInSymbols = new Set(
   /*#__PURE__*/
   Object.getOwnPropertyNames(Symbol)
@@ -52,6 +54,7 @@ const shallowReadonlyGet = /*#__PURE__*/ createGetter(true, true)
 
 const arrayInstrumentations = /*#__PURE__*/ createArrayInstrumentations()
 
+// 数组代理额外操作
 function createArrayInstrumentations() {
   const instrumentations: Record<string, Function> = {}
   // instrument identity-sensitive Array methods to account for possible reactive
@@ -84,14 +87,38 @@ function createArrayInstrumentations() {
   })
   return instrumentations
 }
-
+/**
+ * getter 工厂函数
+ * @param isReadonly 是否是只读
+ * @param shallow 是否只代理第一层创造不同的getter函数
+ * @returns
+ */
 function createGetter(isReadonly = false, shallow = false) {
+  //传递进入Proxy的get函数
+  //例如const obj = {a:2}
+  //    const proxy = new Proxy(obj,{
+  //  get(target,key,receiver){
+  //    当通过proxy.a对obj进行访问的时候,会先进入这个函数
+  //     返回值将会作为proxy.a获得的值
+  //   }
+  // })
   return function get(target: Target, key: string | symbol, receiver: object) {
+    //1.对isReadonly isShallow等方法的处理
+    //以下前面几个判断都是为了通过一些关键key判断
+    //当前的对象是否是被代理的,或者是否是只读的
+    //是否是只代理第一层的。
+    //假设当前我们的代理是reactive类型
+    //如果我们访问__v_isReactive那么返回值应该为true
+    //同理访问readonly类型则返回false
+    //故而这里取反
     if (key === ReactiveFlags.IS_REACTIVE) {
+      // reactive
       return !isReadonly
     } else if (key === ReactiveFlags.IS_READONLY) {
+      //isReadonly
       return isReadonly
     } else if (key === ReactiveFlags.IS_SHALLOW) {
+      // isShallow
       return shallow
     } else if (
       key === ReactiveFlags.RAW &&
@@ -103,7 +130,7 @@ function createGetter(isReadonly = false, shallow = false) {
           : shallow
           ? shallowReactiveMap
           : reactiveMap
-        ).get(target)
+        ).get(target) // __v_raw
     ) {
       return target
     }
@@ -111,6 +138,7 @@ function createGetter(isReadonly = false, shallow = false) {
     const targetIsArray = isArray(target)
 
     if (!isReadonly && targetIsArray && hasOwn(arrayInstrumentations, key)) {
+      // array 操作
       return Reflect.get(arrayInstrumentations, key, receiver)
     }
 

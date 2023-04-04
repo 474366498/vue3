@@ -87,7 +87,6 @@ export type UnwrapNestedRefs<T> = T extends Ref ? T : UnwrapRefSimple<T>
  * ```
  */
 
-
 export function reactive<T extends object>(target: T): UnwrapNestedRefs<T>
 export function reactive(target: object) {
   // if trying to observe a readonly proxy, return the readonly version.
@@ -187,12 +186,14 @@ function createReactiveObject(
   collectionHandlers: ProxyHandler<any>,
   proxyMap: WeakMap<Target, any>
 ) {
+  // 不能够代理非对象
   if (!isObject(target)) {
     if (__DEV__) {
       console.warn(`value cannot be made reactive: ${String(target)}`)
     }
     return target
   }
+  // 已经代理过的对象不需要在进行二次代理
   // target is already a Proxy, return it.
   // exception: calling readonly() on a reactive object
   if (
@@ -201,6 +202,7 @@ function createReactiveObject(
   ) {
     return target
   }
+  // 防止重复代理
   // target already has corresponding Proxy
   const existingProxy = proxyMap.get(target)
   if (existingProxy) {

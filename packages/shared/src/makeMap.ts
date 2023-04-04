@@ -14,5 +14,7 @@ export function makeMap(
   for (let i = 0; i < list.length; i++) {
     map[list[i]] = true
   }
+  //返回一个函数,用于判断是否是传递的str分割出来的某一个值
+  //可以通过expectsLowerCase指定是否需要将分隔值转化为小写
   return expectsLowerCase ? val => !!map[val.toLowerCase()] : val => !!map[val]
 }
