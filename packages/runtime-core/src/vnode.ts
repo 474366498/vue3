@@ -400,7 +400,7 @@ const normalizeRef = ({
       : null
   ) as any
 }
-
+// 创建基础的虚拟节点
 function createBaseVNode(
   type: VNodeTypes | ClassComponent | typeof NULL_DYNAMIC_COMPONENT,
   props: (Data & VNodeProps) | null = null,
@@ -412,30 +412,30 @@ function createBaseVNode(
   needFullChildrenNormalization = false
 ) {
   const vnode = {
-    __v_isVNode: true,
-    __v_skip: true,
-    type,
-    props,
+    __v_isVNode: true, //这是一个vnode 用来判断是不是一个VNode
+    __v_skip: true, //不进行响应式代理
+    type, //.vue文件编译后的对象
+    props, //组件收到的props
     key: props && normalizeKey(props),
     ref: props && normalizeRef(props),
     scopeId: currentScopeId,
     slotScopeIds: null,
     children,
     component: null,
-    suspense: null,
-    ssContent: null,
-    ssFallback: null,
-    dirs: null,
+    suspense: null, //存放suspense
+    ssContent: null, //存放suspense的default的虚拟节点
+    ssFallback: null, //存放suspense的fallback的虚拟节点
+    dirs: null, //解析到的自定义指令
     transition: null,
     el: null,
-    anchor: null,
-    target: null,
-    targetAnchor: null,
+    anchor: null, //插入的锚点
+    target: null, //teleport的参数to指定的DOM
+    targetAnchor: null, //teleport插入的锚点
     staticCount: 0,
-    shapeFlag,
+    shapeFlag, //表示当前vNode的类型
     patchFlag,
-    dynamicProps,
-    dynamicChildren: null,
+    dynamicProps, //含有动态的props
+    dynamicChildren: null, //含有的动态children
     appContext: null
   } as VNode
 
