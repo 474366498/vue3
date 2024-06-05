@@ -33,6 +33,9 @@ const buildTypes = args.t || args.types || isRelease
 const buildAllMatching = args.all || args.a
 const commit = execa.sync('git', ['rev-parse', 'HEAD']).stdout.slice(0, 7)
 
+console.log(16, process.argv)
+console.log(17, args, targets, isRelease, commit)  // { _: [] }
+
 run()
 
 async function run() {
@@ -107,7 +110,8 @@ async function build(target) {
     ],
     { stdio: 'inherit' }
   )
-
+  console.log(71, pkgDir, pkg)
+  console.log(82, env, target)
   if (buildTypes && pkg.types) {
     console.log()
     console.log(
@@ -145,7 +149,7 @@ async function build(target) {
     } else {
       console.error(
         `API Extractor completed with ${extractorResult.errorCount} errors` +
-          ` and ${extractorResult.warningCount} warnings`
+        ` and ${extractorResult.warningCount} warnings`
       )
       process.exitCode = 1
     }

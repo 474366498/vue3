@@ -742,7 +742,7 @@ export function cloneIfMounted(child: VNode): VNode {
     ? child
     : cloneVNode(child)
 }
-
+// 标准化虚拟节点的children属性
 export function normalizeChildren(vnode: VNode, children: unknown) {
   let type = 0
   const { shapeFlag } = vnode
